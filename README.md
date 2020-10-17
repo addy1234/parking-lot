@@ -27,3 +27,4 @@ input.txt is the input file given.
 4) Compile using "javac com/aditya/Main.java" 
 5) Run using "java com/aditya/Main"
 
+P.S. -> Made one commit after the given time, forgot to add somethings.
