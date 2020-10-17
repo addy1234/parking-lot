@@ -37,20 +37,25 @@ public class Main {
         }else if(splitCommand[0].equals("Vehicle_registration_number_for_driver_of_age")) {
 
             ArrayList<String> regList = parkingLot.getAllCarsFromAge(Integer.parseInt(splitCommand[1]));
+            System.out.print(command + " is : ");
             for(String i : regList){
-                System.out.println(i);
+                System.out.print(i + ", ");
             }
+            System.out.println();
 
         }else if(splitCommand[0].equals("Slot_number_for_car_with_number")) {
 
             int slotNumber = parkingLot.getSlotNumber(splitCommand[1]);
+            System.out.println(command + " is : " + slotNumber);
 
         }else if(splitCommand[0].equals("Slot_numbers_for_driver_of_age")) {
 
             ArrayList<Integer> regList = parkingLot.getAllSlotsFromAge(Integer.parseInt(splitCommand[1]));
+            System.out.print(command + " is : ");
             for(Integer i : regList){
-                System.out.println(i);
+                System.out.print(i + ", ");
             }
+            System.out.println();
 
         }else{
             throw new WrongCommandException();
@@ -62,12 +67,12 @@ public class Main {
         ParkingService parkingService = new ParkingService();
 
         // read input
-        FileReader inputFile = new FileReader("./input2.txt");
+        // System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        FileReader inputFile = new FileReader("../input.txt");
         BufferedReader reader = new BufferedReader(inputFile);
 
-        String command = reader.readLine();
-        while(reader.readLine() != null) {
-            command = reader.readLine();
+        String command;
+        while((command = reader.readLine()) != null) {
             executeCommand(command);
         }
     }

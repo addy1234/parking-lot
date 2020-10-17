@@ -42,7 +42,13 @@ public class ParkingLot {
         slot.setIsParked(true);
 
         carMapping.put(car.getRegistrationNumber(), slot.getSlotNumber());
-        ageMapping.get(car.getDriverAge()).put(slot, true);
+        if(ageMapping.containsKey(car.getDriverAge())) {
+            ageMapping.get(car.getDriverAge()).put(slot, true);
+        }else {
+            ageMapping.put(car.getDriverAge(), new HashMap<Slot, Boolean>());
+            ageMapping.get(car.getDriverAge()).put(slot, true);
+        }
+        System.out.println("Assigned slot number " + slot.getSlotNumber() + " to " + car.getRegistrationNumber());
     }
 
     public Slot getCarSlot() {
@@ -51,21 +57,28 @@ public class ParkingLot {
                 return parkingSlots[i];
             }
         }
+        return null;
     }
 
     public void unassignSlot(int slotNumber) {
         Slot slot = parkingSlots[slotNumber];
-        slot.setParkedCar(null);
-        slot.setIsParked(false);
 
+//        for(Map.Entry<String, Integer> sl : carMapping.entrySet()){
+//            System.out.println(sl.getKey() + " " + sl.getValue());
+//        }
         carMapping.remove(slot.getParkedCar().getRegistrationNumber());
         ageMapping.get(slot.getParkedCar().getDriverAge()).remove(slot);
+
+        slot.setParkedCar(null);
+        slot.setIsParked(false);
     }
 
     public ArrayList<String> getAllCarsFromAge(int age) {
         ArrayList<String> registrationList = new ArrayList();
-        for(Map.Entry<Slot, Boolean> slot : ageMapping.get(age).entrySet()) {
-            registrationList.add(slot.getKey().getParkedCar().getRegistrationNumber());
+        if(ageMapping.containsKey(age)) {
+            for (Map.Entry<Slot, Boolean> slot : ageMapping.get(age).entrySet()) {
+                registrationList.add(slot.getKey().getParkedCar().getRegistrationNumber());
+            }
         }
         return registrationList;
     }
