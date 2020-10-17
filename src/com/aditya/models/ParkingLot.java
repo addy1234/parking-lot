@@ -5,6 +5,7 @@ import com.aditya.Exception.NoCarSlotLeftException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ParkingLot {
     int capacity;
@@ -35,7 +36,7 @@ public class ParkingLot {
         return capacity;
     }
 
-    public void assignSlotToCar(Car car) throws NoCarSlotLeftException {
+    public void assignSlot(Car car) throws NoCarSlotLeftException {
         Slot slot = getCarSlot();
         slot.setParkedCar(car);
         slot.setIsParked(true);
@@ -61,7 +62,23 @@ public class ParkingLot {
         ageMapping.get(slot.getParkedCar().getDriverAge()).remove(slot);
     }
 
-    public 
+    public ArrayList<String> getAllCarsFromAge(int age) {
+        ArrayList<String> registrationList = new ArrayList();
+        for(Map.Entry<Slot, Boolean> slot : ageMapping.get(age).entrySet()) {
+            registrationList.add(slot.getKey().getParkedCar().getRegistrationNumber());
+        }
+        return registrationList;
+    }
 
+    public Integer getSlotNumber(String registrationNumber) {
+        return carMapping.get(registrationNumber);
+    }
 
+    public ArrayList<Integer> getAllSlotsFromAge(int age) {
+        ArrayList<Integer> slotList = new ArrayList();
+        for(Map.Entry<Slot, Boolean> slot : ageMapping.get(age).entrySet()) {
+            slotList.add(slot.getKey().getSlotNumber());
+        }
+        return slotList;
+    }
 }

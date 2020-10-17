@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -27,22 +28,36 @@ public class Main {
         }else if(splitCommand[0].equals("Park")) {
 
             Car car = new Car(splitCommand[1], Integer.parseInt(splitCommand[3]));
-            parkingLot.assignSlotToCar(car);
+            parkingLot.assignSlot(car);
 
         }else if(splitCommand[0].equals("Leave")) {
 
+            parkingLot.unassignSlot(Integer.parseInt(splitCommand[1]));
+
         }else if(splitCommand[0].equals("Vehicle_registration_number_for_driver_of_age")) {
+
+            ArrayList<String> regList = parkingLot.getAllCarsFromAge(Integer.parseInt(splitCommand[1]));
+            for(String i : regList){
+                System.out.println(i);
+            }
 
         }else if(splitCommand[0].equals("Slot_number_for_car_with_number")) {
 
+            int slotNumber = parkingLot.getSlotNumber(splitCommand[1]);
+
         }else if(splitCommand[0].equals("Slot_numbers_for_driver_of_age")) {
+
+            ArrayList<Integer> regList = parkingLot.getAllSlotsFromAge(Integer.parseInt(splitCommand[1]));
+            for(Integer i : regList){
+                System.out.println(i);
+            }
 
         }else{
             throw new WrongCommandException();
         }
     }
 
-    public static void main(String[] args) throws IOException, WrongCommandException {
+    public static void main(String[] args) throws IOException, WrongCommandException, NoCarSlotLeftException {
         //System.out.println("Hello World");
         ParkingService parkingService = new ParkingService();
 
