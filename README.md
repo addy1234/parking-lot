@@ -2,6 +2,7 @@
 ### Thought Process
   For all the given three usecases, we need to have different mappings with us. 
   Mappings used:
+  
     1) carMapping: Registration number -> SlotNumber
     
     2) ageMapping: We store all the slots available as per the unique age value.
