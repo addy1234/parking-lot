@@ -1,6 +1,8 @@
 package com.aditya;
 
+import com.aditya.Exception.NoCarSlotLeftException;
 import com.aditya.Exception.WrongCommandException;
+import com.aditya.models.Car;
 import com.aditya.models.ParkingLot;
 import com.aditya.services.ParkingService;
 
@@ -13,7 +15,7 @@ public class Main {
 
     private static ParkingLot parkingLot;
 
-    public static void executeCommand(String command) throws WrongCommandException {
+    public static void executeCommand(String command) throws WrongCommandException, NoCarSlotLeftException {
         System.out.println(command);
         String splitCommand[] = command.split(" ");
 
@@ -24,6 +26,8 @@ public class Main {
 
         }else if(splitCommand[0].equals("Park")) {
 
+            Car car = new Car(splitCommand[1], Integer.parseInt(splitCommand[3]));
+            parkingLot.assignSlotToCar(car);
 
         }else if(splitCommand[0].equals("Leave")) {
 
